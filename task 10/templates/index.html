@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Chatbot</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:Segoe UI,Arial;
+height:100vh;
+display:flex;
+background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+/* ===== APP LAYOUT ===== */
+.app{
+display:flex;
+width:100%;
+height:100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+width:260px;
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(10px);
+color:white;
+display:flex;
+flex-direction:column;
+padding:15px;
+gap:10px;
+}
+
+.sidebar h2{
+font-size:16px;
+margin-bottom:10px;
+}
+
+.new-chat{
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#4CAF50;
+color:white;
+font-weight:bold;
+}
+
+.chat-list{
+flex:1;
+overflow-y:auto;
+margin-top:10px;
+}
+
+.chat-item{
+padding:10px;
+margin-bottom:8px;
+border-radius:10px;
+background:rgba(255,255,255,0.1);
+cursor:pointer;
+font-size:13px;
+}
+
+.chat-item:hover{
+background:rgba(255,255,255,0.2);
+}
+
+/* ===== CHAT AREA ===== */
+.chat-container{
+flex:1;
+display:flex;
+flex-direction:column;
+margin:20px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(12px);
+border-radius:18px;
+overflow:hidden;
+}
+
+.chat-header{
+background:#4CAF50;
+color:white;
+padding:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.chat-messages{
+flex:1;
+padding:15px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.message{
+max-width:75%;
+padding:10px 14px;
+border-radius:16px;
+word-wrap:break-word;
+animation:fade 0.2s ease;
+white-space:pre-line;
+}
+
+.user{
+align-self:flex-end;
+background:#4CAF50;
+color:white;
+}
+
+.bot{
+align-self:flex-start;
+background:#eee;
+color:#222;
+}
+
+.chat-input{
+display:flex;
+padding:10px;
+gap:10px;
+background:rgba(255,255,255,0.2);
+}
+
+.chat-input input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:25px;
+outline:none;
+}
+
+.chat-input button{
+padding:12px 16px;
+border:none;
+border-radius:25px;
+background:#4CAF50;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(5px);}
+to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>💬 Chats</h2>
+<button class="new-chat" onclick="newChat()">+ New Chat</button>
+<div id="chatList" class="chat-list"></div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-container">
+<div class="chat-header">🎓 University Chatbot</div>
+
+<div id="messages" class="chat-messages"></div>
+
+<div class="chat-input">
+<input type="text" id="userInput" placeholder="Ask about fees, admission...">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+</div>
+
+<script>
+let chats = JSON.parse(localStorage.getItem("chats")) || [];
+let currentChat = null;
+
+function save(){
+localStorage.setItem("chats", JSON.stringify(chats));
+}
+
+function renderChatList(){
+let list=document.getElementById("chatList");
+list.innerHTML="";
+
+chats.forEach((c,i)=>{
+let div=document.createElement("div");
+div.className="chat-item";
+div.innerText="Chat " + (i+1);
+div.onclick=()=>loadChat(i);
+list.appendChild(div);
+});
+}
+
+function newChat(){
+let chat={messages:[]};
+chats.push(chat);
+currentChat=chats.length-1;
+save();
+renderChatList();
+renderMessages();
+}
+
+function loadChat(i){
+currentChat=i;
+renderMessages();
+}
+
+function renderMessages(){
+let box=document.getElementById("messages");
+box.innerHTML="";
+
+if(currentChat===null) return;
+
+chats[currentChat].messages.forEach(m=>{
+box.innerHTML+=`<div class='message ${m.role}'>${m.text}</div>`;
+});
+
+box.scrollTop=box.scrollHeight;
+}
+
+function addMessage(text,role){
+if(currentChat===null) newChat();
+
+chats[currentChat].messages.push({text,role});
+save();
+renderMessages();
+}
+
+function sendMessage(){
+let input=document.getElementById("userInput");
+let msg=input.value.trim().toLowerCase();
+if(msg=="") return;
+
+addMessage(input.value,"user");
+
+let reply="Sorry, I didn't understand.";
+
+if(msg.includes("bba")) reply="BBA Fee: 110,000 per semester.";
+else if(msg.includes("bscs")) reply="BSCS Fee: 120,000 per semester.";
+else if(msg.includes("mba")) reply="MBA Fee: 150,000 per semester.";
+else if(msg.includes("fee")) reply="BSCS 120k | BBA 110k | BSE 100k | MBA 150k";
+else if(msg.includes("admission")) reply="60% marks + entry test required.";
+else if(msg.includes("program")) reply="BSCS, BBA, BSE, MBA available.";
+
+setTimeout(()=>addMessage(reply,"bot"),300);
+
+input.value="";
+}
+
+renderChatList();
+if(chats.length>0){currentChat=0;renderMessages();}
+</script>
+
+</body>
+</html>
