@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InterviewAI Pro</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #0ea5e9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* Left side text */
+        .left {
+            max-width: 400px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .left h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .left p {
+            font-size: 15px;
+            opacity: 0.8;
+        }
+
+        .features {
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Card */
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px;
+            border-radius: 20px;
+            width: 360px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            font-size: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: block;
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 15px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255,255,255,0.95);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #22c55e, #4ade80);
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #22c55e;
+        }
+
+        /* Glow effect */
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #0ea5e9;
+            filter: blur(150px);
+            opacity: 0.3;
+            top: 10%;
+            left: 10%;
+        }
+
+        .glow2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #22c55e;
+            filter: blur(150px);
+            opacity: 0.3;
+            bottom: 10%;
+            right: 10%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <h1>🚀 InterviewAI Pro</h1>
+        <p>Practice real interviews powered by AI and get instant feedback to boost your career.</p>
+
+        <div class="features">
+            ✅ Smart AI Questions<br>
+            ✅ Real-time Evaluation<br>
+            ✅ Personalized Feedback<br>
+            ✅ Industry-Level Practice
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE FORM -->
+    <div class="card">
+        <div class="badge">AI Powered System</div>
+
+        <h2>Start Your Interview</h2>
+
+        <form method="POST">
+            <select name="level" required>
+                <option value="">Select Level</option>
+                <option>Fresher</option>
+                <option>Intermediate</option>
+                <option>Expert</option>
+            </select>
+
+            <input type="text" name="role" placeholder="Enter Job Role" required>
+
+            <button type="submit">Start Interview</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            width: 80%;
+            align-items: center;
+        }
+
+        .left {
+            flex: 1;
+        }
+
+        .right {
+            flex: 1;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .result-box {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #22c55e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        a:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDE RESULT -->
+    <div class="left">
+
+        <h1>📊 Interview Result</h1>
+
+        <div class="result-box">
+            <pre style="white-space: pre-wrap;">{{ feedback }}</pre>
+        </div>
+
+        <a href="/">Start Again</a>
+
+    </div>
+
+    <!-- RIGHT SIDE GRAPH -->
+    <div class="right">
+        <canvas id="resultChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+    // 🔥 SIMPLE STATIC SCORE (you can later connect dynamic score)
+    const score = 7;  // change later from backend
+
+    const ctx = document.getElementById('resultChart');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Score', 'Remaining'],
+            datasets: [{
+                data: [score, 10 - score]
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

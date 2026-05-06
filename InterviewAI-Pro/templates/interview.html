@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Chat</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: #020617;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        /* Chat Area */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            width: 70%;
+            margin: auto;
+        }
+
+        .message {
+            margin: 10px 0;
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            line-height: 1.5;
+        }
+
+        .ai {
+            background: #1e293b;
+            align-self: flex-start;
+        }
+
+        .user {
+            background: #22c55e;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 15px;
+            background: #020617;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #1e293b;
+        }
+
+        textarea {
+            flex: 1;
+            resize: none;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        button {
+            background: #22c55e;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .qno {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    💬 AI Interview | Question {{ q_no }}
+</div>
+
+<div class="chat-container">
+
+    <!-- AI Question -->
+    <div class="message ai">
+        <b>AI:</b><br>
+        {{ question }}
+    </div>
+
+</div>
+
+<form method="POST" class="input-area">
+    <textarea name="answer" rows="2" placeholder="Type your answer..." required></textarea>
+    <button type="submit">Send</button>
+</form>
+
+</body>
+</html>
